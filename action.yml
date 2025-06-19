@@ -10,5 +10,5 @@ runs:
   using: node20
   main: src/main.js
 branding:
-  icon: "eye"
-  color: "blue"
+  icon: 'eye'
+  color: 'blue'
