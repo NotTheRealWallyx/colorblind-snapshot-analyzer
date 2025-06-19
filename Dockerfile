@@ -14,7 +14,7 @@ WORKDIR /action
 COPY pyproject.toml poetry.lock* ./
 
 # Install Python dependencies
-RUN poetry install --no-interaction --no-root
+RUN poetry install --no-interaction
 RUN pip install daltonize
 
 # Copy the rest of the code to /action
@@ -24,4 +24,4 @@ COPY colorblind_snapshot_analyzer colorblind_snapshot_analyzer
 ENV PYTHONPATH=/action
 
 # Set entrypoint
-ENTRYPOINT ["python", "-m", "colorblind_snapshot_analyzer.main"]
+ENTRYPOINT ["poetry", "run", "python", "-m", "colorblind_snapshot_analyzer.main"]
