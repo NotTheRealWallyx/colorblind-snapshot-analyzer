@@ -72,7 +72,8 @@ async function run() {
                     await sharp(simulatedBuffer).metadata();
                     markdownReport += `- ✅ Simulated ${type} vision successfully.\n`;
                 } catch (err) {
-                    markdownReport += `- ❌ Failed to simulate ${type} vision.\n`;
+                    console.error(`Error simulating ${type} for ${fileName}:`, err);
+                    markdownReport += `- ❌ Failed to simulate ${type} vision. Error: ${err.message}\n`;
                 }
             }
         }
@@ -92,7 +93,8 @@ async function run() {
                         await sharp(simulatedBuffer).metadata();
                         markdownReport += `- ✅ Simulated ${type} vision successfully.\n`;
                     } catch (err) {
-                        markdownReport += `- ❌ Failed to simulate ${type} vision.\n`;
+                        console.error(`Error simulating ${type} for [PR Body] ${fileName}:`, err);
+                        markdownReport += `- ❌ Failed to simulate ${type} vision. Error: ${err.message}\n`;
                     }
                 }
             } catch (err) {
