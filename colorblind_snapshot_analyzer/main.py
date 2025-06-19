@@ -5,6 +5,8 @@ from PIL import Image
 from io import BytesIO
 from daltonize import daltonize
 from github import Github
+from PIL import ImageChops
+import math
 
 IMAGE_EXTENSIONS = [".png", ".jpg", ".jpeg"]
 COLORBLIND_TYPES = ["protanopia", "deuteranopia", "tritanopia"]
@@ -18,6 +20,15 @@ COLORBLIND_TYPE_MAP = {
 def simulate_colorblind(img, cb_type):
     dalton_type = COLORBLIND_TYPE_MAP[cb_type]
     return daltonize.daltonize(img, dalton_type)
+
+
+def rmsdiff(im1, im2):
+    diff = ImageChops.difference(im1, im2)
+    h = diff.histogram()
+    sq = (value * ((idx % 256) ** 2) for idx, value in enumerate(h))
+    sum_of_squares = sum(sq)
+    rms = math.sqrt(sum_of_squares / float(im1.size[0] * im1.size[1]))
+    return rms
 
 
 def main():
@@ -52,10 +63,12 @@ def main():
             markdown_report += f"\n**{os.path.basename(f.filename)}**:\n"
             for cb_type in COLORBLIND_TYPES:
                 try:
-                    _ = simulate_colorblind(img, cb_type)
-                    markdown_report += (
-                        f"- ✅ Simulated {cb_type} vision successfully.\n"
-                    )
+                    sim_img = simulate_colorblind(img, cb_type)
+                    diff = rmsdiff(img, sim_img)
+                    if diff < 10:
+                        markdown_report += f"- ⚠️ {cb_type} vision: Image may NOT be colorblind-friendly (RMS diff={diff:.2f})\n"
+                    else:
+                        markdown_report += f"- ✅ {cb_type} vision: Image is likely colorblind-friendly (RMS diff={diff:.2f})\n"
                 except Exception as e:
                     markdown_report += (
                         f"- ❌ Failed to simulate {cb_type} vision. Error: {e}\n"
@@ -70,10 +83,12 @@ def main():
             markdown_report += f"\n**[PR Body] {file_name}**:\n"
             for cb_type in COLORBLIND_TYPES:
                 try:
-                    _ = simulate_colorblind(img, cb_type)
-                    markdown_report += (
-                        f"- ✅ Simulated {cb_type} vision successfully.\n"
-                    )
+                    sim_img = simulate_colorblind(img, cb_type)
+                    diff = rmsdiff(img, sim_img)
+                    if diff < 10:
+                        markdown_report += f"- ⚠️ {cb_type} vision: Image may NOT be colorblind-friendly (RMS diff={diff:.2f})\n"
+                    else:
+                        markdown_report += f"- ✅ {cb_type} vision: Image is likely colorblind-friendly (RMS diff={diff:.2f})\n"
                 except Exception as e:
                     markdown_report += (
                         f"- ❌ Failed to simulate {cb_type} vision. Error: {e}\n"
