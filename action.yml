@@ -11,8 +11,7 @@ runs:
   image: "Dockerfile"
   env:
     GITHUB_TOKEN: ${{ inputs.repo-token }}
-    GITHUB_REPOSITORY: ${{ github.repository }}
-    PR_NUMBER: ${{ github.event.pull_request.number }}
+
 branding:
   icon: "eye"
   color: "blue"
