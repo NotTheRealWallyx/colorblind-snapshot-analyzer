@@ -1,0 +1,16 @@
+name: Test Colorblind Snapshot Analyzer
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test-colorblind:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Colorblind Snapshot Analyzer
+        uses: NotTheRealWallyx/colorblind-snapshot-analyzer@main
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}

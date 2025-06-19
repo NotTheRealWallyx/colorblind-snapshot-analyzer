@@ -1,0 +1,14 @@
+name: Colorblind Snapshot Analyzer
+description: Analyzes screenshots in PRs for colorblind accessibility using simulated vision filters.
+author: NotTheRealWallyx
+inputs:
+  repo-token:
+    description: GitHub token to post comments and access PR files
+    required: true
+    default: ${{ github.token }}
+runs:
+  using: node20
+  main: src/main.js
+branding:
+  icon: "eye"
+  color: "blue"
