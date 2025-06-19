@@ -20,5 +20,8 @@ RUN pip install daltonize
 # Copy the rest of the code to /action
 COPY colorblind_snapshot_analyzer colorblind_snapshot_analyzer
 
+# Set PYTHONPATH so Python can find your package
+ENV PYTHONPATH=/action
+
 # Set entrypoint
 ENTRYPOINT ["python", "-m", "colorblind_snapshot_analyzer.main"]
