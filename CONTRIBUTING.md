@@ -20,7 +20,7 @@ Thank you for your interest in contributing to Colorblind Snapshot Analyzer! We 
 1. Fork the repository to your GitHub account.
 2. Clone your forked repository:
    ```bash
-   git clone https://github.com/<your-username>/colorblind-snapshot-analyzer.git
+   git clone https://github.com/NotTheRealWallyx/colorblind-snapshot-analyzer.git
    cd colorblind-snapshot-analyzer
    ```
 3. Set up the development environment:
