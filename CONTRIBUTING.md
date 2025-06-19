@@ -1,6 +1,6 @@
-# Contributing to GitBlend
+# Contributing to Colorblind Snapshot Analyzer
 
-Thank you for your interest in contributing to GitBlend! We welcome contributions of all kinds, including bug reports, feature requests, code contributions, and documentation improvements.
+Thank you for your interest in contributing to Colorblind Snapshot Analyzer! We welcome contributions of all kinds, including bug reports, feature requests, code contributions, and documentation improvements.
 
 ## Table of Contents
 
@@ -20,8 +20,8 @@ Thank you for your interest in contributing to GitBlend! We welcome contribution
 1. Fork the repository to your GitHub account.
 2. Clone your forked repository:
    ```bash
-   git clone https://github.com/<your-username>/GitBlend.git
-   cd GitBlend
+   git clone https://github.com/<your-username>/colorblind-snapshot-analyzer.git
+   cd colorblind-snapshot-analyzer
    ```
 3. Set up the development environment:
    ```bash
@@ -98,4 +98,4 @@ If you have an idea for a new feature, open an issue using the **Feature Request
 
 ---
 
-Thank you for contributing to GitBlend! If you have any questions, feel free to open an issue or reach out to the maintainers.
+Thank you for contributing to Colorblind Snapshot Analyzer! If you have any questions, feel free to open an issue or reach out to the maintainers.
