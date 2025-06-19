@@ -10,15 +10,13 @@ ENV PATH="/root/.local/bin:$PATH"
 # Set workdir to /action so code is not hidden by /github/workspace mount
 WORKDIR /action
 
-# Copy pyproject.toml, poetry.lock, and README.md
+# Copy pyproject.toml, poetry.lock, README.md, and the package code
 COPY pyproject.toml poetry.lock* README.md ./
+COPY colorblind_snapshot_analyzer colorblind_snapshot_analyzer
 
 # Install Python dependencies and project
 RUN poetry install --no-interaction
 RUN pip install daltonize
-
-# Copy the rest of the code to /action
-COPY colorblind_snapshot_analyzer colorblind_snapshot_analyzer
 
 # Set PYTHONPATH so Python can find your package
 ENV PYTHONPATH=/action
