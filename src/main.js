@@ -1,10 +1,8 @@
-const core = require("@actions/core");
-const github = require("@actions/github");
-const path = require("path");
-const fetch = require("node-fetch");
-const { simulate } = require("color-blind");
-const sharp = require("sharp");
-const fs = require("fs");
+import core from "@actions/core";
+import github from "@actions/github";
+import path from "path";
+import fetch from "node-fetch";
+import sharp from "sharp";
 
 const IMAGE_EXTENSIONS = [".png", ".jpg", ".jpeg"];
 const COLORBLIND_TYPES = ["protanopia", "deuteranopia", "tritanopia"];
