@@ -3,32 +3,10 @@ import re
 import requests
 from PIL import Image
 from io import BytesIO
-from daltonize import daltonize
 from github import Github
-from PIL import ImageChops
-import math
+from .analyze import analyze_images
 
 IMAGE_EXTENSIONS = [".png", ".jpg", ".jpeg"]
-COLORBLIND_TYPES = ["protanopia", "deuteranopia", "tritanopia"]
-COLORBLIND_TYPE_MAP = {
-    "protanopia": "p",
-    "deuteranopia": "d",
-    "tritanopia": "t",
-}
-
-
-def simulate_colorblind(img, cb_type):
-    dalton_type = COLORBLIND_TYPE_MAP[cb_type]
-    return daltonize.daltonize(img, dalton_type)
-
-
-def rmsdiff(im1, im2):
-    diff = ImageChops.difference(im1, im2)
-    h = diff.histogram()
-    sq = (value * ((idx % 256) ** 2) for idx, value in enumerate(h))
-    sum_of_squares = sum(sq)
-    rms = math.sqrt(sum_of_squares / float(im1.size[0] * im1.size[1]))
-    return rms
 
 
 def main():
@@ -55,46 +33,27 @@ def main():
     if not image_files and not pr_image_urls:
         print("No image files or PR body images found in this pull request.")
         return
-    markdown_report = "### 🎨 Colorblind Snapshot Report\n\n"
+    # Download images from PR files
+    images = []
     for f in image_files:
         try:
             response = requests.get(f.raw_url)
             img = Image.open(BytesIO(response.content)).convert("RGB")
-            markdown_report += f"\n**{os.path.basename(f.filename)}**:\n"
-            for cb_type in COLORBLIND_TYPES:
-                try:
-                    sim_img = simulate_colorblind(img, cb_type)
-                    diff = rmsdiff(img, sim_img)
-                    if diff < 10:
-                        markdown_report += f"- ⚠️ {cb_type} vision: Image may NOT be colorblind-friendly (RMS diff={diff:.2f})\n"
-                    else:
-                        markdown_report += f"- ✅ {cb_type} vision: Image is likely colorblind-friendly (RMS diff={diff:.2f})\n"
-                except Exception as e:
-                    markdown_report += (
-                        f"- ❌ Failed to simulate {cb_type} vision. Error: {e}\n"
-                    )
+            images.append((os.path.basename(f.filename), img))
         except Exception as e:
-            markdown_report += f"❌ Failed to fetch/process {f.filename}: {e}\n"
+            images.append(
+                (os.path.basename(f.filename), None, f"Failed to fetch/process: {e}")
+            )
+    # Download images from PR body
     for url in pr_image_urls:
         try:
             response = requests.get(url)
             img = Image.open(BytesIO(response.content)).convert("RGB")
             file_name = url.split("/")[-1]
-            markdown_report += f"\n**[PR Body] {file_name}**:\n"
-            for cb_type in COLORBLIND_TYPES:
-                try:
-                    sim_img = simulate_colorblind(img, cb_type)
-                    diff = rmsdiff(img, sim_img)
-                    if diff < 10:
-                        markdown_report += f"- ⚠️ {cb_type} vision: Image may NOT be colorblind-friendly (RMS diff={diff:.2f})\n"
-                    else:
-                        markdown_report += f"- ✅ {cb_type} vision: Image is likely colorblind-friendly (RMS diff={diff:.2f})\n"
-                except Exception as e:
-                    markdown_report += (
-                        f"- ❌ Failed to simulate {cb_type} vision. Error: {e}\n"
-                    )
+            images.append((f"[PR Body] {file_name}", img))
         except Exception as e:
-            markdown_report += f"❌ Failed to fetch/process {url}: {e}\n"
+            images.append((f"[PR Body] {url}", None, f"Failed to fetch/process: {e}"))
+    markdown_report = analyze_images(images)
     pr.create_issue_comment(markdown_report)
 
 

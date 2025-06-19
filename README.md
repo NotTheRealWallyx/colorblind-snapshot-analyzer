@@ -43,7 +43,7 @@ To set up locally:
 poetry install
 ```
 
-To run locally (set environment variables as needed):
+To run on a pull request (set environment variables as needed):
 
 ```bash
 poetry run python -m colorblind_snapshot_analyzer.main
@@ -54,6 +54,19 @@ You may need to set the following environment variables for local testing:
 - `GITHUB_TOKEN` (a GitHub personal access token)
 - `GITHUB_REPOSITORY` (e.g., `username/repo`)
 - `PR_NUMBER` (the pull request number)
+
+### Run Locally on Images in a Folder
+
+To analyze all images in a local folder (default: `images`):
+
+1. Place your images in a folder named `images` (or set the `LOCAL_IMAGE_DIR` environment variable to your folder).
+2. Run:
+
+```bash
+poetry run python -m colorblind_snapshot_analyzer.local
+```
+
+This will print a colorblind accessibility report for all images in the folder.
 
 ## License
 
