@@ -14,12 +14,19 @@ runs:
       with:
         python-version: "3.11"
 
-    - name: Install dependencies
-      run: pip install pillow daltonize PyGithub requests && pip install daltonize
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+        echo "export PATH=\"$HOME/.local/bin:$PATH\"" >> $GITHUB_ENV
+
+    - name: Install dependencies with Poetry
+      run: |
+        poetry install --no-interaction --no-root
+        pip install daltonize
       shell: bash
 
     - name: Run Colorblind Snapshot Analyzer script
-      run: python src/main.py
+      run: poetry run python -m colorblind_snapshot_analyzer.main
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.repo-token }}
