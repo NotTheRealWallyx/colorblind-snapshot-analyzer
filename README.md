@@ -13,6 +13,8 @@ permissions:
   contents: read
 ```
 
+**Note:** This action currently only works on public repositories.
+
 Add the action to your workflow triggered on pull requests:
 
 ```yaml
@@ -99,6 +101,17 @@ poetry run python -m colorblind_snapshot_analyzer.local
 ```
 
 This will print a colorblind accessibility report for all images in the folder.
+
+## Limitations
+
+**Currently, this action only works on public repositories.**
+
+This is because the action is only able to retrieve images from pull requests in public repositories. For private repositories or PRs from forks, GitHub restricts access to certain resources and files, which prevents the action from analyzing images or posting comments. This is a known limitation and is being investigated for possible workarounds or future support.
+
+## Future Work
+
+- Make action work on private repositories
+- Investigate adding use of better vision deficiency simulators to have a better benchmark on what colorblind friendly is
 
 ## License
 
