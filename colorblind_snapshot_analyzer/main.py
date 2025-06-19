@@ -8,11 +8,16 @@ from github import Github
 
 IMAGE_EXTENSIONS = [".png", ".jpg", ".jpeg"]
 COLORBLIND_TYPES = ["protanopia", "deuteranopia", "tritanopia"]
+COLORBLIND_TYPE_MAP = {
+    "protanopia": "p",
+    "deuteranopia": "d",
+    "tritanopia": "t",
+}
 
 
 def simulate_colorblind(img, cb_type):
-
-    return daltonize.daltonize(img, cb_type)
+    dalton_type = COLORBLIND_TYPE_MAP[cb_type]
+    return daltonize.daltonize(img, dalton_type)
 
 
 def main():
