@@ -1,0 +1,36 @@
+name: Colorblind Snapshot Analyzer
+description: Analyzes screenshots in PRs for colorblind accessibility using simulated vision filters.
+author: NotTheRealWallyx
+inputs:
+  repo-token:
+    description: GitHub token to post comments and access PR files
+    required: true
+    default: ${{ github.token }}
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Install poetry
+      uses: abatilo/actions-poetry@v4
+
+    - name: Install dependencies with Poetry
+      run: |
+        poetry install --no-interaction --no-root
+        pip install daltonize
+      shell: bash
+
+    - name: Run Colorblind Snapshot Analyzer script
+      run: poetry run python -m colorblind_snapshot_analyzer.main
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.repo-token }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+
+branding:
+  icon: "eye"
+  color: "blue"

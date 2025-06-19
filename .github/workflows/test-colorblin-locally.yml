@@ -1,0 +1,35 @@
+name: Test Colorblind Snapshot Analyzer Locally
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  test-colorblind:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install poetry
+        uses: abatilo/actions-poetry@v4
+
+      - name: Install dependencies with Poetry
+        run: |
+          poetry install --no-interaction --no-root
+          pip install daltonize
+
+      - name: Run Colorblind Snapshot Analyzer script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: poetry run python -m colorblind_snapshot_analyzer.main
