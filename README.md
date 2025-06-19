@@ -113,4 +113,4 @@ This is because the action is only able to retrieve images from pull requests in
 
 ## License
 
-MIT © NotTheRealWallyx
+This project is licensed under the GNU GPL v3. © NotTheRealWallyx
