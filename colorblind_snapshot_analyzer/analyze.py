@@ -55,7 +55,7 @@ def analyze_images(images):
             try:
                 sim_img = simulate_colorblind_cli(img, cb_type)
                 diff = rmsdiff(img, sim_img)
-                if diff < 10:
+                if diff < 30:
                     markdown_report += f"- ⚠️ {cb_type} vision: Image may NOT be colorblind-friendly (RMS diff={diff:.2f})\n"
                 else:
                     markdown_report += f"- ✅ {cb_type} vision: Image is likely colorblind-friendly (RMS diff={diff:.2f})\n"
