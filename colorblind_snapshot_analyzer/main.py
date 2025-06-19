@@ -11,7 +11,7 @@ COLORBLIND_TYPES = ["protanopia", "deuteranopia", "tritanopia"]
 
 
 def simulate_colorblind(img, cb_type):
-    # daltonize expects a PIL image and type
+
     return daltonize.daltonize(img, cb_type)
 
 
@@ -40,7 +40,6 @@ def main():
         print("No image files or PR body images found in this pull request.")
         return
     markdown_report = "### 🎨 Colorblind Snapshot Report\n\n"
-    # Process PR files
     for f in image_files:
         try:
             response = requests.get(f.raw_url)
@@ -58,7 +57,6 @@ def main():
                     )
         except Exception as e:
             markdown_report += f"❌ Failed to fetch/process {f.filename}: {e}\n"
-    # Process PR body images
     for url in pr_image_urls:
         try:
             response = requests.get(url)
