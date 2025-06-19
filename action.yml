@@ -7,8 +7,25 @@ inputs:
     required: true
     default: ${{ github.token }}
 runs:
-  using: node20
-  main: src/main.js
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Install dependencies
+      run: pip install pillow daltonize PyGithub requests
+      shell: bash
+
+    - name: Run Colorblind Snapshot Analyzer script
+      run: python src/main.py
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.repo-token }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+
 branding:
-  icon: 'eye'
-  color: 'blue'
+  icon: "eye"
+  color: "blue"
