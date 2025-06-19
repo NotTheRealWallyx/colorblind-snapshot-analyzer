@@ -4,6 +4,15 @@ This GitHub Action scans images added or changed in a Pull Request and runs colo
 
 ## Usage
 
+**Important:**
+To allow the action to comment on pull requests, add the following permissions block to your workflow:
+
+```yaml
+permissions:
+  pull-requests: write
+  contents: read
+```
+
 Add the action to your workflow triggered on pull requests:
 
 ```yaml
@@ -12,6 +21,10 @@ name: Colorblind Accessibility Check
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+  contents: read
 
 jobs:
   colorblind-snapshot-analyzer:
