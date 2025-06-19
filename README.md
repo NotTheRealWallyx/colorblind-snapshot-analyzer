@@ -35,6 +35,25 @@ jobs:
 
 Posts a PR comment listing the images analyzed and simulation status for each colorblind type.
 
+### Example Output
+
+```
+### 🎨 Colorblind Snapshot Report
+
+**Note:** RMS diff measures the visual difference between the original and simulated image. A higher RMS diff means more difference (more visible change for colorblind users), while a lower value means less difference (potentially less colorblind-friendly).
+
+
+**Non Colorblind Friendly Images.png**:
+- ⚠️ protanopia vision: Image may NOT be colorblind-friendly (RMS diff=86.71)
+- ⚠️ deuteranopia vision: Image may NOT be colorblind-friendly (RMS diff=86.71)
+- ⚠️ tritanopia vision: Image may NOT be colorblind-friendly (RMS diff=86.71)
+
+**tzosjk2q91511.jpg**:
+- ✅ protanopia vision: Image is likely colorblind-friendly (RMS diff=355.89)
+- ✅ deuteranopia vision: Image is likely colorblind-friendly (RMS diff=355.89)
+- ✅ tritanopia vision: Image is likely colorblind-friendly (RMS diff=355.89)
+```
+
 ## Development
 
 To set up locally:
