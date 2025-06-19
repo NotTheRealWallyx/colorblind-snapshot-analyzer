@@ -13,6 +13,7 @@ COLORBLIND_TYPE_MAP = {
 def simulate_colorblind(img, cb_type):
     dalton_type = COLORBLIND_TYPE_MAP[cb_type]
     arr = daltonize.daltonize(img, dalton_type)
+    print(f"Simulating {cb_type} ({dalton_type}), arr mean: {np.mean(arr)}")
     if isinstance(arr, np.ndarray):
         arr = np.clip(arr, 0, 255).astype(np.uint8)
         return Image.fromarray(arr)
