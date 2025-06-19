@@ -40,14 +40,20 @@ Posts a PR comment listing the images analyzed and simulation status for each co
 To set up locally:
 
 ```bash
-npm install
+poetry install
 ```
 
-To run locally (modify main.js to mock inputs):
+To run locally (set environment variables as needed):
 
 ```bash
-node dist/main.js
+poetry run python -m colorblind_snapshot_analyzer.main
 ```
+
+You may need to set the following environment variables for local testing:
+
+- `GITHUB_TOKEN` (a GitHub personal access token)
+- `GITHUB_REPOSITORY` (e.g., `username/repo`)
+- `PR_NUMBER` (the pull request number)
 
 ## License
 
