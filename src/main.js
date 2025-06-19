@@ -3,6 +3,7 @@ import github from '@actions/github';
 import path from 'path';
 import fetch from 'node-fetch';
 import sharp from 'sharp';
+import { simulate } from 'color-blind';
 
 const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg'];
 const COLORBLIND_TYPES = ['protanopia', 'deuteranopia', 'tritanopia'];
@@ -60,7 +61,14 @@ async function run() {
 
             for (const type of COLORBLIND_TYPES) {
                 try {
-                    await sharp(buffer).raw().toBuffer({ resolveWithObject: true });
+                    // Convert image buffer to PNG base64
+                    const pngBuffer = await sharp(buffer).png().toBuffer();
+                    const base64 = pngBuffer.toString('base64');
+                    // Simulate colorblind vision
+                    const simulatedBase64 = simulate(base64, type);
+                    // Try to decode the simulated image (should be a base64 PNG)
+                    const simulatedBuffer = Buffer.from(simulatedBase64, 'base64');
+                    await sharp(simulatedBuffer).metadata();
                     markdownReport += `- ✅ Simulated ${type} vision successfully.\n`;
                 } catch (err) {
                     markdownReport += `- ❌ Failed to simulate ${type} vision.\n`;
@@ -76,7 +84,11 @@ async function run() {
                 markdownReport += `\n**[PR Body] ${fileName}**:\n`;
                 for (const type of COLORBLIND_TYPES) {
                     try {
-                        await sharp(buffer).raw().toBuffer({ resolveWithObject: true });
+                        const pngBuffer = await sharp(buffer).png().toBuffer();
+                        const base64 = pngBuffer.toString('base64');
+                        const simulatedBase64 = simulate(base64, type);
+                        const simulatedBuffer = Buffer.from(simulatedBase64, 'base64');
+                        await sharp(simulatedBuffer).metadata();
                         markdownReport += `- ✅ Simulated ${type} vision successfully.\n`;
                     } catch (err) {
                         markdownReport += `- ❌ Failed to simulate ${type} vision.\n`;
