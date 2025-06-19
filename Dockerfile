@@ -21,5 +21,5 @@ RUN pip install daltonize
 # Set PYTHONPATH so Python can find your package
 ENV PYTHONPATH=/action
 
-# Set entrypoint to use poetry run
-ENTRYPOINT ["poetry", "run", "python", "-m", "colorblind_snapshot_analyzer.main"]
+# Set entrypoint to use poetry run with --directory /action
+ENTRYPOINT ["poetry", "--directory", "/action", "run", "python", "-m", "colorblind_snapshot_analyzer.main"]
