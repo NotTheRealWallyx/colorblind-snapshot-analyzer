@@ -35,7 +35,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Run Colorblind Snapshot Analyzer
-        uses: NotTheRealWallyx/colorblind-snapshot-analyzer@1.0.0
+        uses: NotTheRealWallyx/colorblind-snapshot-analyzer@1.0.1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -86,8 +86,6 @@ poetry run python -m colorblind_snapshot_analyzer.main
 You may need to set the following environment variables for local testing:
 
 - `GITHUB_TOKEN` (a GitHub personal access token)
-- `GITHUB_REPOSITORY` (e.g., `username/repo`)
-- `PR_NUMBER` (the pull request number)
 
 ### Run Locally on Images in a Folder
 
