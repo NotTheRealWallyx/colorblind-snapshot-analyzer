@@ -7,8 +7,8 @@ RUN apt-get update && apt-get install -y git curl && rm -rf /var/lib/apt/lists/*
 RUN curl -sSL https://install.python-poetry.org | python3 -
 ENV PATH="/root/.local/bin:$PATH"
 
-# Set workdir
-WORKDIR /action
+# Set workdir to match GitHub Actions default
+WORKDIR /github/workspace
 
 # Copy pyproject.toml and poetry.lock
 COPY pyproject.toml poetry.lock* ./
@@ -17,8 +17,8 @@ COPY pyproject.toml poetry.lock* ./
 RUN poetry install --no-interaction --no-root
 RUN pip install daltonize
 
-# Copy the rest of the code
-COPY colorblind_snapshot_analyzer ./colorblind_snapshot_analyzer
+# Copy the rest of the code to the root of the workspace
+COPY colorblind_snapshot_analyzer colorblind_snapshot_analyzer
 
 # Set entrypoint
 ENTRYPOINT ["python", "-m", "colorblind_snapshot_analyzer.main"]

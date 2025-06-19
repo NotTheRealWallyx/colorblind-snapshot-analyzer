@@ -2,6 +2,8 @@ name: Test Colorblind Snapshot Analyzer Locally
 
 on:
   pull_request:
+    branches:
+      - never-trigger-this-branch
     types: [opened, synchronize, reopened]
 
 permissions:
