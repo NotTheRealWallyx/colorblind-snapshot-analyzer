@@ -3,7 +3,8 @@ import github from '@actions/github';
 import path from 'path';
 import fetch from 'node-fetch';
 import sharp from 'sharp';
-import { simulate } from 'color-blind';
+import pkg from 'color-blind';
+const { simulate } = pkg;
 
 const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg'];
 const COLORBLIND_TYPES = ['protanopia', 'deuteranopia', 'tritanopia'];
