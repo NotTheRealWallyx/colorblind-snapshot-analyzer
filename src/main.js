@@ -9,7 +9,10 @@ const COLORBLIND_TYPES = ["protanopia", "deuteranopia", "tritanopia"];
 
 async function run() {
     try {
-        const token = core.getInput("repo-token", { required: true });
+        const token = core.getInput("repo-token", { required: false }) || process.env.GITHUB_TOKEN;
+        if (!token) {
+            throw new Error("GitHub token not provided. Set 'repo-token' input or GITHUB_TOKEN env variable.");
+        }
         const octokit = github.getOctokit(token);
         const { owner, repo } = github.context.repo;
         const prNumber = github.context.payload.pull_request.number;
