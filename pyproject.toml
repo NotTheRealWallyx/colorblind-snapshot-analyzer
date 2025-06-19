@@ -1,6 +1,6 @@
 [project]
 name = "colorblind-snapshot-analyzer"
-version = "0.1.0"
+version = "1.0.1"
 description = ""
 authors = [
     {name = "NotTheRealWallyx",email = "nottherealwallyx@gmail.com"}
