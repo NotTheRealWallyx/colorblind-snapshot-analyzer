@@ -1,6 +1,8 @@
 import numpy as np
 from PIL import ImageChops, Image
-from daltonize import daltonize
+import subprocess
+import tempfile
+import os
 
 COLORBLIND_TYPES = ["protanopia", "deuteranopia", "tritanopia"]
 COLORBLIND_TYPE_MAP = {
@@ -10,14 +12,18 @@ COLORBLIND_TYPE_MAP = {
 }
 
 
-def simulate_colorblind(img, cb_type):
+def simulate_colorblind_cli(img, cb_type):
     dalton_type = COLORBLIND_TYPE_MAP[cb_type]
-    arr = daltonize.daltonize(img, dalton_type)
-    print(f"Simulating {cb_type} ({dalton_type}), arr mean: {np.mean(arr)}")
-    if isinstance(arr, np.ndarray):
-        arr = np.clip(arr, 0, 255).astype(np.uint8)
-        return Image.fromarray(arr)
-    return arr
+    with tempfile.TemporaryDirectory() as tmpdir:
+        orig_path = os.path.join(tmpdir, "orig.png")
+        sim_path = os.path.join(tmpdir, "sim.png")
+        img.save(orig_path)
+        cmd = ["daltonize", "--simulate", "-t", dalton_type, orig_path, sim_path]
+        env = os.environ.copy()
+        env["PYTHONWARNINGS"] = "ignore"
+        subprocess.run(cmd, check=True, env=env)
+        sim_img = Image.open(sim_path).convert("RGB")
+        return sim_img
 
 
 def rmsdiff(im1, im2):
@@ -46,9 +52,9 @@ def analyze_images(images):
         markdown_report += f"\n**{name}**:\n"
         for cb_type in COLORBLIND_TYPES:
             try:
-                sim_img = simulate_colorblind(img, cb_type)
+                sim_img = simulate_colorblind_cli(img, cb_type)
                 diff = rmsdiff(img, sim_img)
-                if diff < 100:
+                if diff < 10:
                     markdown_report += f"- ⚠️ {cb_type} vision: Image may NOT be colorblind-friendly (RMS diff={diff:.2f})\n"
                 else:
                     markdown_report += f"- ✅ {cb_type} vision: Image is likely colorblind-friendly (RMS diff={diff:.2f})\n"

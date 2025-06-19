@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Run Colorblind Snapshot Analyzer
-        uses: your-username/your-repo@main
+        uses: NotTheRealWallyx/colorblind-snapshot-analyzer@1.0.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -44,14 +44,14 @@ Posts a PR comment listing the images analyzed and simulation status for each co
 
 
 **Non Colorblind Friendly Images.png**:
-- ⚠️ protanopia vision: Image may NOT be colorblind-friendly (RMS diff=86.71)
-- ⚠️ deuteranopia vision: Image may NOT be colorblind-friendly (RMS diff=86.71)
-- ⚠️ tritanopia vision: Image may NOT be colorblind-friendly (RMS diff=86.71)
+- ✅ protanopia vision: Image is likely colorblind-friendly (RMS diff=45.70)
+- ✅ deuteranopia vision: Image is likely colorblind-friendly (RMS diff=39.71)
+- ⚠️ tritanopia vision: Image may NOT be colorblind-friendly (RMS diff=4.35)
 
 **tzosjk2q91511.jpg**:
-- ✅ protanopia vision: Image is likely colorblind-friendly (RMS diff=355.89)
-- ✅ deuteranopia vision: Image is likely colorblind-friendly (RMS diff=355.89)
-- ✅ tritanopia vision: Image is likely colorblind-friendly (RMS diff=355.89)
+- ✅ protanopia vision: Image is likely colorblind-friendly (RMS diff=26.79)
+- ✅ deuteranopia vision: Image is likely colorblind-friendly (RMS diff=21.13)
+- ✅ tritanopia vision: Image is likely colorblind-friendly (RMS diff=47.16)
 ```
 
 ## Development

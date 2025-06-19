@@ -6,6 +6,7 @@ from io import BytesIO
 from github import Github
 from .analyze import analyze_images
 
+
 IMAGE_EXTENSIONS = [".png", ".jpg", ".jpeg"]
 
 

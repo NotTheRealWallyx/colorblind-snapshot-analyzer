@@ -15,7 +15,7 @@ runs:
         python-version: "3.11"
 
     - name: Install dependencies
-      run: pip install pillow daltonize PyGithub requests
+      run: pip install pillow daltonize PyGithub requests && pip install daltonize
       shell: bash
 
     - name: Run Colorblind Snapshot Analyzer script

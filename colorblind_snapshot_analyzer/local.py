@@ -2,6 +2,7 @@ import os
 from PIL import Image
 from .analyze import analyze_images
 
+
 IMAGE_EXTENSIONS = [".png", ".jpg", ".jpeg"]
 
 
