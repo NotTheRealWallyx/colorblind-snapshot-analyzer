@@ -1,11 +1,12 @@
 import os
 import re
-import requests
-from PIL import Image
 from io import BytesIO
-from github import Github
-from .analyze import analyze_images
 
+import requests
+from github import Github
+from PIL import Image
+
+from .analyze import analyze_images
 
 IMAGE_EXTENSIONS = [".png", ".jpg", ".jpeg"]
 

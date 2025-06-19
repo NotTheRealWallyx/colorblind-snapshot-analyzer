@@ -1,8 +1,9 @@
-import numpy as np
-from PIL import ImageChops, Image
+import os
 import subprocess
 import tempfile
-import os
+
+import numpy as np
+from PIL import Image, ImageChops
 
 COLORBLIND_TYPES = ["protanopia", "deuteranopia", "tritanopia"]
 COLORBLIND_TYPE_MAP = {
