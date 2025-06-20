@@ -29,8 +29,6 @@ runs:
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
         echo "$HOME/.local/bin" >> $GITHUB_PATH
-        export PATH="$HOME/.local/bin:$PATH"
-        poetry --version  # confirm visibility
 
     - name: Convert pyproject.toml from Poetry to PDM
       shell: bash
@@ -41,7 +39,7 @@ runs:
     - name: Install dependencies from pyproject.toml using pdm
       shell: bash
       run: |
-        PDM_IGNORE_VENV=1 pdm install 2>/dev/null
+        PDM_IGNORE_VENV=1 pdm install
 
     - name: Run Colorblind Snapshot Analyzer
       shell: bash
