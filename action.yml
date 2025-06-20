@@ -34,7 +34,7 @@ runs:
         GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
         PR_NUMBER: ${{ env.PR_NUMBER }}
       run: |
-        python -m colorblind_snapshot_analyzer.main
+        python ${{ github.action_path }}/colorblind_snapshot_analyzer/main.py "${{ inputs.path }}"
 
 branding:
   icon: "eye"
