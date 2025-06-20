@@ -24,12 +24,11 @@ runs:
 
     - name: Install Poetry
       shell: bash
-      run: curl -sSL https://install.python-poetry.org | python3 -
-
-    - name: Add Poetry to PATH
-      shell: bash
       run: |
+        curl -sSL https://install.python-poetry.org | python3 -
         echo "$HOME/.local/bin" >> $GITHUB_PATH
+        export PATH="$HOME/.local/bin:$PATH"
+        poetry --version  # confirm visibility
 
     - name: Convert pyproject.toml from Poetry to PDM
       shell: bash
