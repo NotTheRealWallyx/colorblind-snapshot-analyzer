@@ -31,6 +31,7 @@ runs:
         echo "$HOME/.local/bin" >> $GITHUB_PATH
 
     - name: Convert pyproject.toml from Poetry to PDM
+      working-directory: ${{ github.workspace }}
       shell: bash
       run: |
         export PATH="$HOME/.local/bin:$PATH"
