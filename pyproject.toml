@@ -1,13 +1,15 @@
-[tool.poetry]
+[project]
 name = "colorblind-snapshot-analyzer"
 version = "1.0.1"
 description = "A tool to analyze and visualize colorblindness in images using Daltonize and Pillow."
-authors = ["NotTheRealWallyx <nottherealwallyx@gmail.com>"]
-license = "GPL-3.0-or-later"
+authors = [
+  { name = "NotTheRealWallyx", email = "nottherealwallyx@gmail.com" }
+]
+license = { text = "AGPL-3.0-or-later" }
 readme = "README.md"
+requires-python = ">=3.13"
 
 [tool.poetry.dependencies]
-python = ">=3.12"
 pillow = ">=11.2.1,<12.0.0"
 daltonize = ">=0.2.0,<0.3.0"
 requests = ">=2.32.4,<3.0.0"
