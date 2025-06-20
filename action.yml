@@ -34,7 +34,7 @@ runs:
       shell: bash
       run: |
         export PATH="$HOME/.local/bin:$PATH"
-        PDM_IGNORE_VENV=1 pdm import poetry
+        PDM_IGNORE_VENV=1 pdm import -vf poetry ./pyproject.toml
 
     - name: Install dependencies from pyproject.toml using pdm
       shell: bash
