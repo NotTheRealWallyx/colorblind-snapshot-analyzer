@@ -25,6 +25,11 @@ runs:
     - name: Install poetry
       uses: abatilo/actions-poetry@v4
 
+    - name: Add Poetry to PATH
+      shell: bash
+      run: |
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+
     - name: Convert pyproject.toml from Poetry to PDM
       shell: bash
       run: |
