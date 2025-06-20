@@ -22,6 +22,11 @@ runs:
         python -m pip install --upgrade pip
         pip install pdm
 
+    - name: Convert pyproject.toml from Poetry to PDM
+      shell: bash
+      run: |
+        PDM_IGNORE_VENV=1 pdm import poetry
+
     - name: Install dependencies from pyproject.toml using pdm
       shell: bash
       run: |
