@@ -22,6 +22,9 @@ runs:
         python -m pip install --upgrade pip
         pip install pdm
 
+    - name: Install poetry
+      uses: abatilo/actions-poetry@v4
+
     - name: Convert pyproject.toml from Poetry to PDM
       shell: bash
       run: |
