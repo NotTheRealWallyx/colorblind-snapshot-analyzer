@@ -1,4 +1,4 @@
-FROM python:3.11.9-slim
+FROM python:3.13.5-slim
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y git curl && rm -rf /var/lib/apt/lists/*
