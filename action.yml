@@ -11,8 +11,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v4
-
     - name: Setup Python 3.13
       uses: actions/setup-python@v4
       with:
@@ -31,11 +29,20 @@ runs:
         echo "$HOME/.local/bin" >> $GITHUB_PATH
 
     - name: Convert pyproject.toml from Poetry to PDM
-      working-directory: ${{ github.workspace }}
       shell: bash
+      working-directory: ${{ github.workspace }}
       run: |
         export PATH="$HOME/.local/bin:$PATH"
-        PDM_IGNORE_VENV=1 pdm import -vf poetry ./pyproject.toml
+        echo "Poetry version:"
+        poetry --version
+        echo "Repo contents:"
+        ls -la
+        if [ -f "pyproject.toml" ]; then
+          PDM_IGNORE_VENV=1 pdm import -vf poetry pyproject.toml
+        else
+          echo "❌ pyproject.toml not found in the checked-out repo"
+          exit 1
+        fi
 
     - name: Install dependencies from pyproject.toml using pdm
       shell: bash
