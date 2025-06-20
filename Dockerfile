@@ -19,18 +19,16 @@ RUN PDM_IGNORE_VENV=1 pdm lock
 # Install only production dependencies (skip dev)
 RUN PDM_IGNORE_VENV=1 pdm install --prod
 
+# Set the environment to use PDM's virtualenv
+ENV VIRTUAL_ENV=/action/.venv
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
 # Copy the rest of the code to /action
 COPY colorblind_snapshot_analyzer colorblind_snapshot_analyzer
 
 # Set PYTHONPATH so Python can find your package
 ENV PYTHONPATH=/action
 
-# After the PDM install step, get the path to the venv
-RUN VENV_PATH=$(pdm info -v) && echo "Using venv at $VENV_PATH"
-
-# Set environment variables so the container uses the venv python and libs by default
-ENV VIRTUAL_ENV=$VENV_PATH
-ENV PATH="$VENV_PATH/bin:$PATH"
 
 # Set entrypoint to run your main module
 ENTRYPOINT ["python", "-m", "colorblind_snapshot_analyzer.main"]
