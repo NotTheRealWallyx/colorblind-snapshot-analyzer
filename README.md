@@ -2,7 +2,7 @@
 
 [![CI Entrypoint](https://github.com/NotTheRealWallyx/colorblind-snapshot-analyzer/actions/workflows/ci_entrypoint.yml/badge.svg)](https://github.com/NotTheRealWallyx/colorblind-snapshot-analyzer/actions/workflows/ci_entrypoint.yml) [![CodeFactor](https://www.codefactor.io/repository/github/nottherealwallyx/colorblind-snapshot-analyzer/badge)](https://www.codefactor.io/repository/github/nottherealwallyx/colorblind-snapshot-analyzer) [![codecov](https://codecov.io/gh/NotTheRealWallyx/colorblind-snapshot-analyzer/graph/badge.svg?token=J15UR18013)](https://codecov.io/gh/NotTheRealWallyx/colorblind-snapshot-analyzer) [![Python](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/release/python-3130/)
 
-This GitHub Action scans images added or changed in a Pull Request and runs colorblind vision simulations (Protanopia, Deuteranopia, Tritanopia) on them. It posts a textual report on the PR commenting whether the simulation succeeded, helping maintain color accessibility.
+This GitHub Action scans images added, changed, or updated as part of a Pull Request (including images referenced in the PR body) and runs colorblind vision simulations (Protanopia, Deuteranopia, Tritanopia) on them. It posts a textual report on the PR commenting whether the simulation succeeded, helping maintain color accessibility.
 
 ## Usage
 
@@ -75,15 +75,15 @@ Posts a PR comment listing the images analyzed and simulation status for each co
 **Note:** RMS diff measures the visual difference between the original and simulated image. A higher RMS diff means more difference (more visible change for colorblind users), while a lower value means less difference (potentially less colorblind-friendly).
 
 
-**Non Colorblind Friendly Images.png**:
+**ColoredMap.png**:
 - ✅ protanopia vision: Image is likely colorblind-friendly (RMS diff=45.70)
 - ✅ deuteranopia vision: Image is likely colorblind-friendly (RMS diff=39.71)
 - ⚠️ tritanopia vision: Image may NOT be colorblind-friendly (RMS diff=4.35)
 
-**tzosjk2q91511.jpg**:
-- ✅ protanopia vision: Image is likely colorblind-friendly (RMS diff=26.79)
-- ✅ deuteranopia vision: Image is likely colorblind-friendly (RMS diff=21.13)
-- ✅ tritanopia vision: Image is likely colorblind-friendly (RMS diff=47.16)
+**ColorBlindCircle.png**:
+- ✅ protanopia vision: Image is likely colorblind-friendly (RMS diff=53.98)
+- ✅ deuteranopia vision: Image is likely colorblind-friendly (RMS diff=42.69)
+- ✅ tritanopia vision: Image is likely colorblind-friendly (RMS diff=43.96)
 ```
 
 ## Development
