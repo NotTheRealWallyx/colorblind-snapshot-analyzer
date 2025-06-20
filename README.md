@@ -17,7 +17,19 @@ permissions:
 
 **Note:** This action currently only works on public repositories.
 
-Add the action to your workflow triggered on pull requests:
+Add the action to your workflow triggered on pull requests. You must also set the following environment variables in your workflow step:
+
+```yaml
+- name: Run Colorblind Snapshot Analyzer
+  uses: NotTheRealWallyx/colorblind-snapshot-analyzer@1.0.1
+  with:
+    repo-token: ${{ secrets.GITHUB_TOKEN }}
+  env:
+    GITHUB_REPOSITORY: ${{ github.repository }}
+    PR_NUMBER: ${{ github.event.pull_request.number }}
+```
+
+Full example:
 
 ```yaml
 name: Colorblind Accessibility Check
@@ -40,6 +52,9 @@ jobs:
         uses: NotTheRealWallyx/colorblind-snapshot-analyzer@1.0.1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
 ```
 
 ### Inputs
