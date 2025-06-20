@@ -33,6 +33,7 @@ runs:
     - name: Convert pyproject.toml from Poetry to PDM
       shell: bash
       run: |
+        export PATH="$HOME/.local/bin:$PATH"
         PDM_IGNORE_VENV=1 pdm import poetry
 
     - name: Install dependencies from pyproject.toml using pdm
