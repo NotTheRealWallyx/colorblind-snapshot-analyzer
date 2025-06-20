@@ -16,9 +16,6 @@ RUN pdm import -f poetry pyproject.toml || true
 # Export env var to ignore venv creation
 ENV PDM_IGNORE_VENV=1
 
-# Explicitly update the lock file (won't create venv)
-RUN pdm lock
-
 # Now install dependencies system-wide (no venv)
 RUN pdm install
 
