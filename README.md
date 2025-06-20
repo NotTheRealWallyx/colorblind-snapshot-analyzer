@@ -1,5 +1,7 @@
 # Colorblind Snapshot Analyzer GitHub Action
 
+[![CI Entrypoint](https://github.com/NotTheRealWallyx/colorblind-snapshot-analyzer/actions/workflows/ci_entrypoint.yml/badge.svg)](https://github.com/NotTheRealWallyx/colorblind-snapshot-analyzer/actions/workflows/ci_entrypoint.yml) [![CodeFactor](https://www.codefactor.io/repository/github/nottherealwallyx/colorblind-snapshot-analyzer/badge)](https://www.codefactor.io/repository/github/nottherealwallyx/colorblind-snapshot-analyzer) [![codecov](https://codecov.io/gh/NotTheRealWallyx/colorblind-snapshot-analyzer/graph/badge.svg?token=J15UR18013)](https://codecov.io/gh/NotTheRealWallyx/colorblind-snapshot-analyzer) [![Python](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/release/python-3130/)
+
 This GitHub Action scans images added or changed in a Pull Request and runs colorblind vision simulations (Protanopia, Deuteranopia, Tritanopia) on them. It posts a textual report on the PR commenting whether the simulation succeeded, helping maintain color accessibility.
 
 ## Usage
