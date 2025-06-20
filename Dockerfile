@@ -8,8 +8,6 @@ RUN pip install --upgrade pip && pip install pdm
 
 COPY pyproject.toml README.md ./
 
-RUN pdm import -f pyproject.toml 
-
 RUN PDM_IGNORE_VENV=1 pdm lock
 
 RUN PDM_IGNORE_VENV=1 pdm install --prod
