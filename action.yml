@@ -25,7 +25,7 @@ runs:
     - name: Install dependencies from pyproject.toml using pdm
       shell: bash
       run: |
-        PDM_IGNORE_VENV=1 pdm install
+        PDM_IGNORE_VENV=1 pdm install 2>/dev/null
 
     - name: Run Colorblind Snapshot Analyzer
       shell: bash
