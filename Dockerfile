@@ -1,16 +1,20 @@
 FROM python:3.13.5-slim
 
-# Install system dependencies
 RUN apt-get update && apt-get install -y git curl && rm -rf /var/lib/apt/lists/*
 
-# Set workdir to /action so code is not hidden by /github/workspace mount
 WORKDIR /action
 
-# Copy requirements.txt and README.md
-COPY requirements.txt README.md ./
+# Install PDM
+RUN pip install --upgrade pip && pip install pdm
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy pyproject.toml and README.md
+COPY pyproject.toml README.md ./
+
+# Convert Poetry pyproject.toml to PDM format (if needed)
+RUN pdm import -f poetry pyproject.toml || true
+
+# Install dependencies with PDM (ignore venv so it installs to system)
+RUN PDM_IGNORE_VENV=1 pdm install
 
 # Copy the rest of the code to /action
 COPY colorblind_snapshot_analyzer colorblind_snapshot_analyzer
