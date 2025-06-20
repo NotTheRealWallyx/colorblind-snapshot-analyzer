@@ -13,8 +13,14 @@ COPY pyproject.toml README.md ./
 # Convert Poetry pyproject.toml to PDM format (if needed)
 RUN pdm import -f poetry pyproject.toml || true
 
-# Install dependencies with PDM (ignore venv so it installs to system)
-RUN PDM_IGNORE_VENV=1 pdm install
+# Export env var to ignore venv creation
+ENV PDM_IGNORE_VENV=1
+
+# Explicitly update the lock file (won't create venv)
+RUN pdm lock
+
+# Now install dependencies system-wide (no venv)
+RUN pdm install
 
 # Copy the rest of the code to /action
 COPY colorblind_snapshot_analyzer colorblind_snapshot_analyzer
