@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 [tool.poetry.group.dev.dependencies]
-black = "^26.10.0"
+black = "^26.10.1"
 pre-commit = "^4.7.0"
 isort = "^9.0.2"
 pytest = "^9.1.1"
